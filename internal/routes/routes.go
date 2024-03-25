@@ -3,6 +3,7 @@ package routes
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -21,9 +22,11 @@ func router() *chi.Mux {
 }
 
 func StartServer() {
-	fmt.Println("Server starting on port 8080")
+	port := os.Getenv("PORT")
 
-	err := http.ListenAndServe(":8080", router())
+	fmt.Printf("Server starting on port %s", port)
+
+	err := http.ListenAndServe(fmt.Sprintf(":%s", port), router())
 	if err != nil {
 		panic(err)
 	}
