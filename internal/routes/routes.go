@@ -7,11 +7,17 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/rs/cors"
 )
+
+// type apiConfig struct {
+// 	DB *database.Queries
+// }
 
 func router() *chi.Mux {
 	r := chi.NewRouter()
 
+	r.Use(cors.AllowAll().Handler)
 	r.Use(middleware.Logger)
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
